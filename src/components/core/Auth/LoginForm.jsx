@@ -1,25 +1,34 @@
-import React, { useState } from 'react'
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { useState } from "react"
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import { useDispatch } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
 
-const LoginForm = () => {
-    const [formData,setFormData] = useState({
-        email:"",
-        password:"",
-    })
-    const [showPassword,setShowPassword] = useState(false);
-    const {email,password} = formData;
-    function handleOnSubmit(event){
-        event.preventDefault()
-        console.log(formData);
+import { login } from "../../../services/operations/authAPI"
 
-    }
-    function handleOnChange(event){
-        setFormData((prevData) => ({
-            ...prevData,
-            [event.target.name]: event.target.value,
-          }))
-    }
+function LoginForm() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  })
+
+  const [showPassword, setShowPassword] = useState(false)
+
+  const { email, password } = formData
+
+  const handleOnChange = (e) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }))
+  }
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    dispatch(login(email, password, navigate))
+  }
+
   return (
     <form
       onSubmit={handleOnSubmit}

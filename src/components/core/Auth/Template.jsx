@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
-import SignupForm from '../Auth/SignupForm'
-import LoginForm from './LoginForm';
-import frameImg from '../../../assets/Images/frame.png'
+import { FcGoogle } from "react-icons/fc"
+import { useSelector } from "react-redux"
 
-const Template = ({title,description1,description2,image,formType}) => {
-    const [loading,setLoading] = useState(false);
+import frameImg from "../../../assets/Images/frame.png"
+import LoginForm from "./LoginForm"
+import SignupForm from "./SignupForm"
+
+function Template({ title, description1, description2, image, formType }) {
+  const { loading } = useSelector((state) => state.auth)
+
   return (
     <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
       {loading ? (
